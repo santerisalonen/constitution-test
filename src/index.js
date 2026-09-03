@@ -1,5 +1,5 @@
 const express = require('express');
-const { createTask, getTasks } = require('./store');
+const { createTask, getTasks, completeTask } = require('./store');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -17,6 +17,18 @@ app.post('/tasks', (req, res) => {
 
 app.get('/tasks', (req, res) => {
   return res.json(getTasks());
+});
+
+app.post('/tasks/:id/complete', (req, res) => {
+  const id = Number(req.params.id);
+  if (!Number.isInteger(id) || id < 1) {
+    return res.status(400).json({ error: 'invalid task id' });
+  }
+  const task = completeTask(id);
+  if (!task) {
+    return res.status(404).json({ error: 'task not found' });
+  }
+  return res.json(task);
 });
 
 app.listen(PORT, () => {
