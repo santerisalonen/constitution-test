@@ -7,6 +7,11 @@ function createTask(title) {
   return task;
 }
 
+function getTasks() {
+  return tasks;
+}
+
 module.exports = {
   createTask,
+  getTasks,
 };

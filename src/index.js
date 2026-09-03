@@ -1,5 +1,5 @@
 const express = require('express');
-const { createTask } = require('./store');
+const { createTask, getTasks } = require('./store');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -13,6 +13,10 @@ app.post('/tasks', (req, res) => {
   }
   const task = createTask(title.trim());
   return res.status(201).json(task);
+});
+
+app.get('/tasks', (req, res) => {
+  return res.json(getTasks());
 });
 
 app.listen(PORT, () => {
