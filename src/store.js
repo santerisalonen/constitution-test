@@ -11,7 +11,15 @@ function getTasks() {
   return tasks;
 }
 
+function completeTask(id) {
+  const task = tasks.find((t) => t.id === id);
+  if (!task) return null;
+  task.completed = true;
+  return task;
+}
+
 module.exports = {
   createTask,
   getTasks,
+  completeTask,
 };
